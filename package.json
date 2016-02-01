@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Boilerplate for front-end development",
   "main": "gulpfile.js",
+  "repository": "github:jad-b/frontend-flow",
   "dependencies": {},
   "devDependencies": {
     "bower": "^1.7.7",
@@ -17,6 +18,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Jeremy Dobbins-Bucklad <j.american.db@gmail.com>",
   "license": "ISC"
 }
