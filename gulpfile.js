@@ -37,8 +37,9 @@ gulp.task('build:html', function() {
 });
 
 gulp.task('build:css', function() {
-        gulp.src(src + 'css/*.css')
-            .pipe(gulp.dest(dest + 'css'));
+    gulp.src(src + 'css/*.css')
+        .pipe(gulp.dest(dest + 'css'))
+        .pipe(browserSync.stream());
 });
 
 gulp.task('serve', ['build'], function() {
