@@ -1,46 +1,49 @@
 'use strict';
 
-import gulp from 'gulp';
-import autoprefixer from 'gulp-autoprefixer';
-import browserSync from 'browser-sync';
-import sass from 'gulp-sass';
-import sourcemaps from 'gulp-sourcemaps';
+var gulp = require('gulp'),
+    browserSync = require('browser-sync').create(),
+    plugins = require('gulp-load-plugins')({
+        pattern: ['gulp-*', 'gulp.*', 'main-bower-files'],
+        replaceString: /\bgulp[\-.]/
+    });
 
-const src = {
-        scss: 'app/scss/*.scss',
-        css: 'app/css',
-        js: 'app/js/*.js',
-        html: 'app/*.html'
-    },
-    dest = {
-        js: 'app/app.js',
-        css: 'app/app.css',
-    }
+var src = 'app/src/',
+    dest = 'app/dist/';
 
-gulp.task('styles', () => {
-  return gulp.src(src.scss)
-    .pipe(sourcemaps.init())
-    .pipe(sass.sync().on('error', plugins.sass.logError))
-    .pipe(autoprefixer())
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(paths.dest));
+gulp.task('build', [
+    'build:js',
+    'build:vendor-js',
+    'build:html'
+]);
+
+/* Copy all the vendor javascript into our destination js folder */
+gulp.task('build:vendor-js', function() {
+    gulp.src(plugins.mainBowerFiles())
+        .pipe(gulp.dest(dest + 'js'));
 });
 
-gulp.task('scripts', () => {
-    return gulp.src(src.js)
-    .pipe(sourcemaps.init())
-    .pipe(babel())
-    .pipe(concat(dest.js))
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(dest.js));
+/* Concat all of our javascript into our destination js folder */
+gulp.task('build:js', function() {
+    gulp.src(src + 'js/*.js')
+        .pipe(plugins.concat('app.js'))
+        .pipe(plugins.uglify())
+        .pipe(gulp.dest(dest + 'js'));
 });
 
-gulp.task('serve', () => {
+gulp.task('build:html', function() {
+    gulp.src(src + 'index.html')
+        .pipe(gulp.dest(dest));
+});
+
+gulp.task('serve', ['build'], function() {
     browserSync.init({
         server: {
-            baseDir: "./"
+            baseDir: dest
         }
     });
+
+    gulp.watch(src + 'js/*.js', ['build:js']);
+    gulp.watch(src + 'index.html', ['build:html']).on('change', browserSync.reload);
 });
 
 gulp.task('default', ['serve']);
