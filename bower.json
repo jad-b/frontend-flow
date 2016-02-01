@@ -1,0 +1,19 @@
+{
+  "name": "frontend-flow",
+  "description": "Boilerplate for front-end development",
+  "main": "gulpfile.js",
+  "authors": [
+    "jad-b <j.american.db@gmail.com>"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

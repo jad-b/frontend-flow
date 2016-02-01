@@ -1,0 +1,16 @@
+{
+  "name": "frontend-flow",
+  "version": "1.0.0",
+  "description": "Boilerplate for front-end development",
+  "main": "gulpfile.js",
+  "dependencies": {},
+  "devDependencies": {
+    "bower": "^1.7.7",
+    "gulp": "^3.9.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
